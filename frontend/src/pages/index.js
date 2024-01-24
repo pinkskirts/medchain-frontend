@@ -1,7 +1,10 @@
-export default function Home() {
+import MainHeader from "@/components/main-header/main-header";
+
+export default function HomePage() {
   return (
     <>
-      <h1>Test</h1>
+      <MainHeader />
+      <h1>MedChain Home</h1>
     </>
   );
 }
