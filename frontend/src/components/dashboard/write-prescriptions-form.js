@@ -79,6 +79,50 @@ function WritePrescriptionsForms() {
     <div>
       <section>
         <h1>Create Prescription</h1>
+        <form onSubmit={handleSubmit} ref={createFormRef}>
+          <div>
+            <input
+              type="text"
+              maxLength="6"
+              placeholder="CRM"
+              onChange={(e) => setCRM(e.target.value)}
+              required
+            ></input>
+            ex.: 123355 <br />
+            <input
+              type="text"
+              placeholder="Patient's name"
+              onChange={(e) => setPatientName(e.target.value)}
+              required
+            ></input>
+            <br />
+            <input
+              type="text"
+              placeholder="Medicine name"
+              onChange={(e) => setMedicineName(e.target.value)}
+              required
+            ></input>
+            ex.: Clonazepam (o famoso Rivotril)
+          </div>
+          {errorCreateForm && <div>{errorCreateForm}</div>}
+          <button>Submit</button>
+        </form>
+      </section>
+      <section>
+        <h1>Delete Prescription</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              placeholder="Prescription ID"
+              onChange={(e) => setPrescriptionID(e.target.value)}
+              required
+            ></input>
+            <br />
+          </div>
+          {errorDeleteForm && <div>{errorDeleteForm}</div>}
+          <button>Submit</button>
+        </form>
+      </section>
     </div>
   );
 }
