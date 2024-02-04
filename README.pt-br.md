@@ -12,10 +12,10 @@ O MedChain DApp é um aplicativo descentralizado construído no blockchain Ether
 
 Principais características:
 * Armazenamento descentralizado: os detalhes da prescrição são armazenados na blockchain Ethereum, eliminando a necessidade de um banco de dados centralizado e melhorando a integridade dos dados.
-* Registros Imutáveis: As informações da prescrição, incluindo datas de vencimento, números de série e nomes dos pacientes, são registradas de forma a evitar modificações não autorizadas, garantindo a precisão dos dados históricos.
-* Acesso Transparente: As partes autorizadas podem aceder aos dados de prescrição de forma transparente, promovendo a responsabilização e a confiança no sistema de saúde.
-* Automação de Contratos Inteligentes: Os contratos inteligentes facilitam a automação de processos relacionados à prescrição, reduzindo a intervenção manual e possíveis erros.
-* Interface amigável: O DApp oferece uma interface intuitiva e fácil de usar para fácil interação, permitindo que profissionais de saúde e pessoal autorizado busquem e verifiquem detalhes da prescrição com eficiência.
+* Registros Imutáveis: as informações da prescrição, incluindo datas de vencimento, números de série e nomes dos pacientes, são registradas de forma a evitar modificações não autorizadas, garantindo a precisão dos dados históricos.
+* Acesso Transparente: as partes autorizadas podem aceder aos dados de prescrição de forma transparente, promovendo a responsabilização e a confiança no sistema de saúde.
+* Automação de Contratos Inteligentes: contratos inteligentes facilitam a automação de processos relacionados à prescrição, reduzindo a intervenção manual e possíveis erros.
+* Interface amigável: a aplicação oferece uma interface intuitiva e fácil de usar para fácil interação, permitindo que profissionais de saúde e pessoal autorizado busquem e verifiquem detalhes da prescrição com eficiência.
 
 ## Feito com
 
