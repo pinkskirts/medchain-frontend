@@ -1,4 +1,4 @@
-import NavLink from "./nav-link";
+import NavLink from "../misc/nav-link";
 
 function MainHeader() {
   return (
