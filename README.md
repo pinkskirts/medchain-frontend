@@ -6,7 +6,7 @@
 </details>
 
 # About
-## Ethereum-based DApp for secure and transparent storage of medical prescriptions
+### Ethereum-based DApp for secure and transparent storage of medical prescriptions
 
 The MedChain DApp is a decentralized application built on the Ethereum blockchain that revolutionizes the storage and retrieval of medicine prescriptions. Leveraging blockchain technology, this DApp securely stores prescription information, addressing the challenges associated with the traditional management of medicine prescriptions by introducing a decentralized and secure solution.
 
