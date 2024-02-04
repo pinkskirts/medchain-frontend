@@ -1,4 +1,6 @@
 import classes from "./signup-form.module.css";
+import { useState } from "react";
+import Link from "next/link";
 import MainHeader from "@/components/main-header/main-header";
 function SignUpForm() {
   // useState variables
