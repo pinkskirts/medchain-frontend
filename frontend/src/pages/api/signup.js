@@ -7,6 +7,9 @@ export default async function handler(req, res) {
     return;
   }
 
+  //.env var
+  const usersCollection = process.env.MONGODB_COLLECTION_USERS;
+
   const data = req.body;
 
   const { name, email, password } = data;
@@ -29,7 +32,7 @@ export default async function handler(req, res) {
 
   const db = client.db();
 
-  const existingUser = await db.collection("users").findOne({ email: email });
+  const existingUser = await db.collection(usersCollection).findOne({ email: email });
 
   if (existingUser) {
     res.status(422).json({ message: "invalid input - user already exists!" });
@@ -40,7 +43,7 @@ export default async function handler(req, res) {
   const hashedPassword = await hashPassword(password);
   console.log("Hashed user password: ", hashedPassword); // debug
 
-  const insertionResult = await db.collection("users").insertOne({
+  const insertionResult = await db.collection(usersCollection).insertOne({
     name: name,
     email: email,
     password: hashedPassword,

@@ -4,6 +4,9 @@ export default async function handler(req, res) {
   const client = await connectToDatabase();
   const db = client.db();
   const data = req.body;
+
+  //.env var
+  const medicalPrescriptionsCollection = process.env.MONGODB_COLLECTION_PRESCRIPTIONS;
   
   try {
     switch (req.method) {
@@ -16,7 +19,7 @@ export default async function handler(req, res) {
           new Date()
         );
 
-        await db.collection("medical-prescriptions").insertOne({
+        await db.collection(medicalPrescriptionsCollection).insertOne({
           ID: generatedID,
           CRM: integerCRM,
           patient: patientName,
@@ -35,7 +38,7 @@ export default async function handler(req, res) {
         const integerID = parseInt(prescriptionID);
 
         const existingPrescription = await db
-          .collection("medical-prescriptions")
+          .collection(medicalPrescriptionsCollection)
           .findOne({ ID: integerID });
 
         if (!existingPrescription) {
@@ -47,7 +50,7 @@ export default async function handler(req, res) {
         }
 
         await db
-          .collection("medical-prescriptions")
+          .collection(medicalPrescriptionsCollection)
           .deleteOne(existingPrescription);
 
         res.status(201).json({
@@ -58,7 +61,7 @@ export default async function handler(req, res) {
 
       case "GET":
         const data = await db
-          .collection("medical-prescriptions")
+          .collection(medicalPrescriptionsCollection)
           .find(
             {},
             {
