@@ -105,7 +105,6 @@ func formatPrintPrescriptions(prescs []Prescription) {
 	fmt.Println("------------------------------------")
 }
 
-
 func buildPrescriptionInput() (Prescription, error) { // todo: input error handling
 	var presc Prescription
 	var nameInput, expDateInput, patientInput string
@@ -125,6 +124,7 @@ func buildPrescriptionInput() (Prescription, error) { // todo: input error handl
 	return presc, nil
 }
 
+// CRUD methods------------------------------
 // CREATE - Create prescription and add it to DB
 func createPrescription() (int64, error) { // todo: fix exit status 1 bad user input
 	presc, err := buildPrescriptionInput()
@@ -191,5 +191,99 @@ func readPrescriptions() error {
 
 	formatPrintPrescriptions(prescs)
 	return nil
+}
+
+// UPDATE
+// Search prescription by ID and overwrite info
+func updatePrescription() error { // todo: debug and refactor method
+	var idInput int64
+
+	// Checks for inexistent ids
+	for okInput := false; !okInput; {
+		fmt.Println("Select a prescription to modify: ")
+		readPrescriptions()
+		fmt.Scan(&idInput)
+
+		row := db.QueryRow("SELECT id FROM prescriptions WHERE id = ?", idInput)
+
+		if err := row.Scan(); err != nil {
+			if err == sql.ErrNoRows {
+				fmt.Print("Please enter a valid ID!\n\n")
+			} else {
+				okInput = true
+				updateByID(idInput)
+			}
+		}
+	}
+
+	return nil
+}
+
+func updateByID(id int64) error {
+	var textInput string
+
+	for exit := false; !exit; {
+		fmt.Println("\nWhat field would you like to modify?")
+		fmt.Println("Enter any key to cancel")
+		fmt.Println("1 -> Medicine's name")
+		fmt.Println("2 -> Expiration Date")
+		fmt.Println("3 -> Patient's name")
+		fmt.Scan(&input)
+
+		switch input {
+		case 1:
+			fmt.Print("New medicine name: ")
+			fmt.Scan(&textInput)
+
+			_, err := db.Exec("UPDATE prescriptions SET _name = ? WHERE id = ?", textInput, id)
+			if err != nil {
+				return fmt.Errorf("updatePrescription: %v", err)
+			} else {
+				exit = repeatUpdateOption()
+			}
+		case 2:
+			fmt.Print("New expiration date (YYYY-MM-DD): ")
+			fmt.Scan(&textInput)
+
+			_, err := db.Exec("UPDATE prescriptions SET exp_date = ? WHERE id = ?", textInput, id)
+			if err != nil {
+				return fmt.Errorf("updatePrescription: %v", err)
+			} else {
+				exit = repeatUpdateOption()
+			}
+		case 3:
+			fmt.Print("New patient name: ")
+			fmt.Scan(&textInput)
+
+			_, err := db.Exec("UPDATE prescriptions SET patient = ? WHERE id = ?", textInput, id)
+			if err != nil {
+				return fmt.Errorf("updatePrescription: %v", err)
+			} else {
+				exit = repeatUpdateOption()
+			}
+		default:
+			fmt.Println("Operation aborted!")
+			exit = true
+		}
+	}
+
+	return nil
+}
+
+func repeatUpdateOption() bool {
+	var input string
+	exit := false
+
+	fmt.Println("Would you like to modify any other field?")
+	fmt.Println("Please enter either y to confirm or any key to cancel")
+	fmt.Scan(&input)
+
+	input = strings.TrimSpace(input)
+
+	if input != "y" {
+		exit = true
+	}
+
+	return exit
 }
 
