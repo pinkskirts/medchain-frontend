@@ -1,4 +1,6 @@
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/pinkskirts/medchain/blob/dev/README.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/pinkskirts/medchain/blob/dev/README.md)
+[![zh](https://img.shields.io/badge/lang-zh-red.svg)](https://github.com/pinkskirts/medchain/blob/dev/README.zh.md)
+
 
 <!-- TABLE OF CONTENTS -->
 <details>
