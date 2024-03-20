@@ -11,6 +11,7 @@ import (
 )
 
 var db *sql.DB
+var input int // Aux input for menu selections
 const timeLayout string = "2006-01-02"
 
 type Prescription struct {
@@ -77,6 +78,13 @@ func menu() {
 
 			time.Sleep(2 * time.Second)
 		case 2:
+			fmt.Println("Available data:")
+			err := readPrescriptions()
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println("Press any key to continue...")
+			fmt.Scan(&input)
 		case 3:
 		case 4:
 
