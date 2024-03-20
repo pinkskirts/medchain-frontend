@@ -86,6 +86,10 @@ func menu() {
 			fmt.Println("Press any key to continue...")
 			fmt.Scan(&input)
 		case 3:
+			err := updatePrescription()
+			if err != nil {
+				log.Fatal(err)
+			}
 		case 4:
 
 			time.Sleep(2 * time.Second)
