@@ -66,6 +66,14 @@ func menu() {
 
 		switch menuInput {
 		case 1:
+			prescID, err := createPrescription()
+
+			if err != nil || prescID == 0 {
+				fmt.Printf("%v", err)
+			} else {
+				fmt.Println("Prescription built!")
+				fmt.Printf("ID of added prescription: %v\n", prescID)
+			}
 
 			time.Sleep(2 * time.Second)
 		case 2:
