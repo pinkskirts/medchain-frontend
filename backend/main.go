@@ -67,3 +67,21 @@ func menu() {
 		}
 	}
 }
+func buildPrescriptionInput() (Prescription, error) { // todo: input error handling
+	var presc Prescription
+	var nameInput, expDateInput, patientInput string
+
+	fmt.Println("Please enter the medicine's name: ")
+	fmt.Scan(&nameInput)
+	presc._Name = nameInput
+
+	fmt.Println("Expiration date (YYYY-MM-DD): ")
+	fmt.Scan(&expDateInput)
+	presc.ExpDate = expDateInput
+
+	fmt.Println("Patient's name: ")
+	fmt.Scan(&patientInput)
+	presc.Patient = patientInput
+
+	return presc, nil
+}
