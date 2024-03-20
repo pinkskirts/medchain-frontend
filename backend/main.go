@@ -3,10 +3,22 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
+	"strings"
+	"time"
+
 	"github.com/go-sql-driver/mysql"
 )
 
 var db *sql.DB
+const timeLayout string = "2006-01-02"
+
+type Prescription struct {
+	ID      int
+	_Name   string
+	ExpDate string
+	Patient string
+}
 
 func main() {
 	// Capture connection properties.
@@ -67,6 +79,8 @@ func menu() {
 		}
 	}
 }
+
+
 func buildPrescriptionInput() (Prescription, error) { // todo: input error handling
 	var presc Prescription
 	var nameInput, expDateInput, patientInput string
@@ -85,3 +99,29 @@ func buildPrescriptionInput() (Prescription, error) { // todo: input error handl
 
 	return presc, nil
 }
+
+// CREATE - Create prescription and add it to DB
+func createPrescription() (int64, error) { // todo: fix exit status 1 bad user input
+	presc, err := buildPrescriptionInput()
+	if err != nil {
+		return 0, fmt.Errorf("buildPrescriptionInput: %v", err)
+	}
+
+	// Parse the date string into a time.Time value so it can be added to DB
+	parsedDate, err := time.Parse(timeLayout, presc.ExpDate)
+	if err != nil {
+		fmt.Println("Error parsing date:", err)
+		return 0, nil
+	}
+
+	result, err := db.Exec("INSERT INTO prescriptions (id, _name, exp_date, patient) VALUES (?, ?, ?, ?)", presc.ID, presc._Name, parsedDate, presc.Patient)
+	if err != nil {
+		return 0, fmt.Errorf("createPrescription: %v", err)
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, fmt.Errorf("createPrescription: %v", err)
+	}
+	return id, nil
+}
+
