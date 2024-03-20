@@ -91,6 +91,14 @@ func menu() {
 				log.Fatal(err)
 			}
 		case 4:
+			res, err := deletePrescription()
+			if err != nil {
+				log.Fatal(err)
+			} else if res == 1 {
+				fmt.Println("Operation aborted!")
+			} else {
+				fmt.Println("Prescription removed!")
+			}
 
 			time.Sleep(2 * time.Second)
 		default:
