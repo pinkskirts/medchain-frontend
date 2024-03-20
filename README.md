@@ -1,4 +1,5 @@
 [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/pinkskirts/medchain/blob/dev/README.pt-br.md)
+[![zh](https://img.shields.io/badge/lang-zh-red.svg)](https://github.com/pinkskirts/medchain/blob/dev/README.zh.md)
 
 <!-- TABLE OF CONTENTS -->
 <details>
