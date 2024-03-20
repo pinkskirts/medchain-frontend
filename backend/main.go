@@ -291,3 +291,44 @@ func repeatUpdateOption() bool {
 	return exit
 }
 
+// DELETE
+func deletePrescription() (int, error) {
+	var input int64
+	var confirmInput string
+
+	fmt.Println("Select a prescription to remove: ")
+	readPrescriptions()
+	fmt.Scan(&input)
+
+	fmt.Print("Please confirm your selection (y/any key):")
+	fmt.Scan(&confirmInput)
+
+	// Trims input whitespace
+	confirmInput = strings.TrimSpace(confirmInput)
+
+	for len(confirmInput) != 1 {
+		fmt.Println("Please enter either y to confirm or any key to cancel")
+	}
+
+	if confirmInput == "y" {
+		// Search prescription by ID and remove it
+		err := removeByID(input)
+		if err != nil {
+			log.Fatal("deletePrescription: ", err)
+		}
+	} else {
+		return 1, nil // Cancel prescription removal, no error issued
+	}
+
+	return 0, nil
+}
+
+// Removes a prescription based on its ID
+func removeByID(id int64) error {
+	_, err := db.Exec("DELETE FROM prescriptions WHERE id = ?", id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return nil
+}
+
