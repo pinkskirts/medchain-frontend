@@ -88,6 +88,15 @@ func menu() {
 	}
 }
 
+// Takes in a prescription and format it to display on the terminal
+func formatPrintPrescriptions(prescs []Prescription) {
+	fmt.Println("------------------------------------")
+	for _, value := range prescs {
+		fmt.Printf("- %v: %v, %v, %v\n", value.ID, value._Name, value.ExpDate, value.Patient)
+	}
+	fmt.Println("------------------------------------")
+}
+
 
 func buildPrescriptionInput() (Prescription, error) { // todo: input error handling
 	var presc Prescription
@@ -131,5 +140,48 @@ func createPrescription() (int64, error) { // todo: fix exit status 1 bad user i
 		return 0, fmt.Errorf("createPrescription: %v", err)
 	}
 	return id, nil
+}
+
+// READ
+func readPrescriptions() error {
+	// A prescriptions slice to hold data from returned rows
+	var prescs []Prescription
+
+	rows, err := db.Query("SELECT * FROM prescriptions")
+	if err != nil {
+		return fmt.Errorf("readPrescriptions: %w", err)
+	}
+	defer rows.Close()
+
+	// Loop through rows, using Scan to assign column data to struct fields.
+	for rows.Next() {
+		var presc Prescription
+
+		if err := rows.Scan(&presc.ID, &presc._Name, &presc.ExpDate, &presc.Patient); err != nil {
+			return fmt.Errorf("%w", err)
+		}
+
+		// Takes the date string and format it to only display the date, removing the timestamp
+		// parsing - string to time.Time
+		t, err := time.Parse(time.RFC3339, presc.ExpDate)
+		if err != nil {
+			return fmt.Errorf("error while parsing the time string: %v", err)
+		}
+
+		// Remove timestamp, maintain data
+		dateWithoutTime := t.Format(timeLayout)
+
+		// parsing - time.Time to string 
+		presc.ExpDate = dateWithoutTime
+
+		prescs = append(prescs, presc)
+	}
+
+	if err := rows.Err(); err != nil {
+		return fmt.Errorf("readPrescriptions: %w", err)
+	}
+
+	formatPrintPrescriptions(prescs)
+	return nil
 }
 
