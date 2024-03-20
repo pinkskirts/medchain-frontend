@@ -32,5 +32,38 @@ func main() {
 	}
 	fmt.Print("Sucessfully connected to DB!\n")
 
+	menu()
 }
 
+func menu() {
+	// Menu
+	for exit := false; !exit; {
+		var menuInput int
+
+		fmt.Println("\n\n------------------------")
+		fmt.Println("WELCOME -- CRUD TEST")
+		fmt.Println("------------------------")
+		fmt.Println("Select an option (enter any other input to exit): ")
+		fmt.Println("1 -> ADD PRESCRIPTION")             // CREATE
+		fmt.Println("2 -> VIEW AVAILABLE PRESCRIPTIONS") // READ
+		fmt.Println("3 -> UPDATE A PRESCRIPTION")        // UPDATE
+		fmt.Println("4 -> DELETE A PRESCRIPTION")        // DELETE
+
+		fmt.Scan(&menuInput)
+		fmt.Print("\n\n")
+
+		switch menuInput {
+		case 1:
+
+			time.Sleep(2 * time.Second)
+		case 2:
+		case 3:
+		case 4:
+
+			time.Sleep(2 * time.Second)
+		default:
+			exit = true
+			fmt.Println("Bye!")
+		}
+	}
+}
