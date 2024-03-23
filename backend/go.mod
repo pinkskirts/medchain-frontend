@@ -1,4 +1,4 @@
-module example.com/m
+module medchainbackend
 
 go 1.22.1
 
