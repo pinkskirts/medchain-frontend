@@ -1,3 +1,4 @@
+// todo: refactor db pointer
 package crud
 
 import (
@@ -21,7 +22,7 @@ func Menu(db *sql.DB) {
 
 		switch menuInput {
 		case 1:
-			prescID, err := CreatePrescription(db)
+			prescID, err := CreatePrescription()
 
 			if err != nil || prescID == 0 {
 				fmt.Printf("%v", err)
@@ -33,19 +34,19 @@ func Menu(db *sql.DB) {
 			time.Sleep(2 * time.Second)
 		case 2:
 			fmt.Println("Available data:")
-			err := ReadPrescriptions(db)
+			err := ReadPrescriptions()
 			if err != nil {
 				log.Fatal(err)
 			}
 			fmt.Println("Press any key to continue...")
 			fmt.Scan(&input)
 		case 3:
-			err := UpdatePrescription(db)
+			err := UpdatePrescription()
 			if err != nil {
 				log.Fatal(err)
 			}
 		case 4:
-			res, err := DeletePrescription(db)
+			res, err := DeletePrescription()
 			if err != nil {
 				log.Fatal(err)
 			} else if res == 1 {

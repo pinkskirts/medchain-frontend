@@ -1,3 +1,5 @@
+// todo: refactor db pointer
+
 package crud
 
 import (
@@ -7,7 +9,8 @@ import (
 	"strings"
 	"time"
 
-	view "medchainbackend/util/view"
+	"medchainbackend/DB"
+	"medchainbackend/util/view"
 )
 
 type Prescription struct {
@@ -50,7 +53,10 @@ func formatPrintPrescriptions(prescs []Prescription) {
 
 // CRUD methods------------------------------
 // CREATE - Create prescription and add it to DB
-func CreatePrescription(db *sql.DB) (int64, error) { // todo: fix exit status 1 bad user input
+func CreatePrescription() (int64, error) { // todo: fix exit status 1 bad user input
+	var db *sql.DB = DB.DbRef
+	checkNullDb()
+
 	presc, err := buildPrescriptionInput()
 	if err != nil {
 		return 0, fmt.Errorf("buildPrescriptionInput: %v", err)
@@ -75,7 +81,10 @@ func CreatePrescription(db *sql.DB) (int64, error) { // todo: fix exit status 1 
 }
 
 // READ
-func ReadPrescriptions(db *sql.DB) error {
+func ReadPrescriptions() error {
+	var db *sql.DB = DB.DbRef
+	checkNullDb()
+
 	// A prescriptions slice to hold data from returned rows
 	var prescs []Prescription
 
@@ -119,13 +128,16 @@ func ReadPrescriptions(db *sql.DB) error {
 
 // UPDATE
 // Search prescription by ID and overwrite info
-func UpdatePrescription(db *sql.DB) error { // todo: debug and refactor method
+func UpdatePrescription() error { // todo: debug and refactor method
+	var db *sql.DB = DB.DbRef
+	checkNullDb()
+
 	var idInput int64
 
 	// Checks for inexistent ids
 	for okInput := false; !okInput; {
 		fmt.Println("Select a prescription to modify: ")
-		ReadPrescriptions(db)
+		ReadPrescriptions()
 		fmt.Scan(&idInput)
 
 		row := db.QueryRow("SELECT id FROM prescriptions WHERE id = ?", idInput)
@@ -135,7 +147,7 @@ func UpdatePrescription(db *sql.DB) error { // todo: debug and refactor method
 				fmt.Print("Please enter a valid ID!\n\n")
 			} else {
 				okInput = true
-				updateByID(idInput, db)
+				updateByID(idInput)
 			}
 		}
 	}
@@ -143,7 +155,10 @@ func UpdatePrescription(db *sql.DB) error { // todo: debug and refactor method
 	return nil
 }
 
-func updateByID(id int64, db *sql.DB) error {
+func updateByID(id int64) error {
+	var db *sql.DB = DB.DbRef
+	checkNullDb()
+
 	var textInput string
 
 	for exit := false; !exit; {
@@ -207,12 +222,14 @@ func repeatUpdateOption() bool {
 }
 
 // DELETE
-func DeletePrescription(db *sql.DB) (int, error) {
+func DeletePrescription() (int, error) {
+	checkNullDb()
+
 	var input int64
 	var confirmInput string
 
 	fmt.Println("Select a prescription to remove: ")
-	ReadPrescriptions(db)
+	ReadPrescriptions()
 	fmt.Scan(&input)
 
 	fmt.Print("Please confirm your selection (y/any key):")
@@ -227,7 +244,7 @@ func DeletePrescription(db *sql.DB) (int, error) {
 
 	if confirmInput == "y" {
 		// Search prescription by ID and remove it
-		err := removeByID(input, db)
+		err := removeByID(input)
 		if err != nil {
 			log.Fatal("deletePrescription: ", err)
 		}
@@ -239,10 +256,20 @@ func DeletePrescription(db *sql.DB) (int, error) {
 }
 
 // Removes a prescription based on its ID
-func removeByID(id int64, db *sql.DB) error {
+func removeByID(id int64) error {
+	var db *sql.DB = DB.DbRef
+	checkNullDb()
+
 	_, err := db.Exec("DELETE FROM prescriptions WHERE id = ?", id)
 	if err != nil {
 		log.Fatal(err)
 	}
 	return nil
+}
+
+func checkNullDb() {
+	var db *sql.DB = DB.DbRef
+	if db == nil {
+		log.Fatal("DB doesn't exist!")
+	}
 }

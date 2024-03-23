@@ -1,40 +1,14 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"log"
-
-	crud "medchainbackend/util/crud"
-
-	"github.com/go-sql-driver/mysql"
+	"medchainbackend/DB"
+	"medchainbackend/util/api"
+	"medchainbackend/util/crud"
 )
 
-var db *sql.DB	
-
-func main() { // todo: get config attributes by .env
-	// Capture connection properties.
-	cfg := mysql.Config{
-		User:                 "root",
-		Passwd:               "",
-		Net:                  "tcp",
-		Addr:                 "127.0.0.1:3306",
-		DBName:               "medchain",
-		AllowNativePasswords: true,
-		ParseTime:            true,
-	}
-
-	// Database handle
-	var err error
-	db, err = sql.Open("mysql", cfg.FormatDSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if pingErr := db.Ping(); pingErr != nil {
-		log.Fatal(pingErr)
-	}
-	fmt.Print("Sucessfully connected to DB!\n")
-
-	crud.Menu(db)
+func main() {
+	// Connects to DB so its reference can be used in CRUD menu
+	crud.Menu(DB.Init())
+	// Runs API router
+	api.ServerInit()
 }

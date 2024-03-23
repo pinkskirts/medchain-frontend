@@ -1,8 +1,6 @@
 package view
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func ShowMainMenu() {
 	fmt.Println("\n\n------------------------")
