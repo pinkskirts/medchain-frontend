@@ -34,7 +34,7 @@ func Menu(db *sql.DB) {
 			time.Sleep(2 * time.Second)
 		case 2:
 			fmt.Println("Available data:")
-			err := ReadPrescriptions()
+			_, err := ReadPrescriptions()
 			if err != nil {
 				log.Fatal(err)
 			}

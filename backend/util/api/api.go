@@ -21,11 +21,11 @@ func ServerInit() {
 }
 
 func getUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	err := crud.ReadPrescriptions()
+	prescs, err := crud.ReadPrescriptions()
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
 
-	json.NewEncoder(w).Encode(err) // todo: null object
+	json.NewEncoder(w).Encode(prescs) 
 }

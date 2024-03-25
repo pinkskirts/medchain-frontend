@@ -81,7 +81,7 @@ func CreatePrescription() (int64, error) { // todo: fix exit status 1 bad user i
 }
 
 // READ
-func ReadPrescriptions() error {
+func ReadPrescriptions() ([]Prescription, error){
 	var db *sql.DB = DB.DbRef
 	checkNullDb()
 
@@ -90,7 +90,7 @@ func ReadPrescriptions() error {
 
 	rows, err := db.Query("SELECT * FROM prescriptions")
 	if err != nil {
-		return fmt.Errorf("readPrescriptions: %w", err)
+		return nil, fmt.Errorf("readPrescriptions: %w", err)
 	}
 	defer rows.Close()
 
@@ -99,14 +99,14 @@ func ReadPrescriptions() error {
 		var presc Prescription
 
 		if err := rows.Scan(&presc.ID, &presc._Name, &presc.ExpDate, &presc.Patient); err != nil {
-			return fmt.Errorf("%w", err)
+			return nil, fmt.Errorf("%w", err)
 		}
 
 		// Takes the date string and format it to only display the date, removing the timestamp
 		// parsing - string to time.Time
 		t, err := time.Parse(time.RFC3339, presc.ExpDate)
 		if err != nil {
-			return fmt.Errorf("error while parsing the time string: %v", err)
+			return nil, fmt.Errorf("error while parsing the time string: %v", err)
 		}
 
 		// Remove timestamp, maintain data
@@ -119,11 +119,11 @@ func ReadPrescriptions() error {
 	}
 
 	if err := rows.Err(); err != nil {
-		return fmt.Errorf("readPrescriptions: %w", err)
+		return nil, fmt.Errorf("readPrescriptions: %w", err)
 	}
 
 	formatPrintPrescriptions(prescs)
-	return nil
+	return prescs, nil
 }
 
 // UPDATE
