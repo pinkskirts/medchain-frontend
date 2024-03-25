@@ -8,7 +8,13 @@ import (
 
 func main() {
 	// Connects to DB so its reference can be used in CRUD menu
-	crud.Menu(DB.Init())
+	db, err := DB.Init()
+	if err != nil {
+		panic(err)
+	}
+
+	crud.Menu(db)
+
 	// Runs API router
 	api.ServerInit()
 }
