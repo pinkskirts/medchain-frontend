@@ -14,13 +14,13 @@ func ServerInit() {
 	router := httprouter.New()
 
 	// Static route config
-	router.GET("/users/", getUser)
+	router.GET("/prescs/", getPrescs)
 
 	// Start HTTP server
 	http.ListenAndServe(port, router)
 }
 
-func getUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func getPrescs(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	prescs, err := crud.ReadPrescriptions()
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
