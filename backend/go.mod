@@ -4,7 +4,7 @@ go 1.22.1
 
 require (
 	github.com/go-sql-driver/mysql v1.8.0
-	github.com/gofor-little/env v1.0.17
+	github.com/joho/godotenv v1.5.1
 	github.com/julienschmidt/httprouter v1.3.0
 )
 
