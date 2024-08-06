@@ -19,4 +19,4 @@ The MedChain DApp is a decentralized application built on the Ethereum blockchai
 
 # Getting Started
 
-## Prerequisites
+## Requirements
