@@ -1,24 +1,30 @@
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/pinkskirts/medchain/blob/dev/README.pt-br.md)
+# React + TypeScript + Vite
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-</details>
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# About
-### Ethereum-based DApp for secure and transparent storage of medical prescriptions
+Currently, two official plugins are available:
 
-The MedChain DApp is a decentralized application built on the Ethereum blockchain that revolutionizes the storage and retrieval of medicine prescriptions. Leveraging blockchain technology, this DApp securely stores prescription information, addressing the challenges associated with the traditional management of medicine prescriptions by introducing a decentralized and secure solution.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Key Features:
-* Decentralized Storage: Prescription details are stored on the Ethereum blockchain, eliminating the need for a centralized database and enhancing data integrity.
-* Immutable Records: Prescription information, including expiration dates, serial numbers, and patient names, is recorded in a way that prevents unauthorized modifications, ensuring the accuracy of historical data.
-* Transparent Access: Authorized parties can access prescription data transparently, promoting accountability and trust in the healthcare system.
-* Smart Contract Automation: Smart contracts facilitate the automation of prescription-related processes, reducing manual intervention and potential errors.
-* User-Friendly Interface: The DApp offers an intuitive and user-friendly interface for easy interaction, allowing healthcare professionals and authorized personnel to fetch and verify prescription details efficiently.
+## Expanding the ESLint configuration
 
-## Built With
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-# Getting Started
+- Configure the top-level `parserOptions` property like this:
 
-## Prerequisites
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
+
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
