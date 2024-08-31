@@ -2,84 +2,101 @@ import useAuthentication from "hooks/useAuthentication";
 import * as _ from "./styles";
 import { EyeHideInputIcon, EyeShowInputIcon } from "@theme/icons";
 import { theme } from "@theme/index";
+import Spinner from "@components/UI/Loaders/Spinner";
 
 export default function RightSide() {
-    const {
-        isPasswordVisible,
-        setIsVisible,
-        handleCheckbox,
-        rememberLogin,
-    } = useAuthentication();
+  const {
+    errorMsg,
+    isPasswordVisible,
+    setIsVisible,
+    handleCheckbox,
+    rememberLogin,
 
-    return (
-        <_.Container>
-            <_.Content>
-                
-                <_.LoginTopDiv>
-                    <_.LoginTopDivHeader>Login</_.LoginTopDivHeader>
-                    <_.DoesNotHaveAccountDiv>
-                        <_.PlainText>Ainda não possui uma conta? </_.PlainText>
-                        <_.DoesNotHaveAccountLink to={'/sign-up'}>
-                            <_.PlainText>Clique aqui para se cadastrar.</_.PlainText>                        
-                        </_.DoesNotHaveAccountLink>
-                    </_.DoesNotHaveAccountDiv>
-                </_.LoginTopDiv>
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    handleAuthForm,
+  } = useAuthentication();
 
-                <_.LoginForm>
+  return (
+    <_.Container>
+      <_.Content>
+        <_.LoginTopDiv>
+          <_.LoginTopDivHeader>Login</_.LoginTopDivHeader>
+          <_.DoesNotHaveAccountDiv>
+            <_.PlainText>Ainda não possui uma conta? </_.PlainText>
+            <_.DoesNotHaveAccountLink to={"/sign-up"}>
+              <_.PlainText>Clique aqui para se cadastrar.</_.PlainText>
+            </_.DoesNotHaveAccountLink>
+          </_.DoesNotHaveAccountDiv>
+        </_.LoginTopDiv>
 
-                    <_.FormInputDiv>
-                        <_.InputLabel>Email</_.InputLabel>
-                        <_.Input 
-                            placeholder='Insira seu email'
-                            autoComplete='email'
-                        />
-                    </_.FormInputDiv>
+        <_.LoginForm onSubmit={handleSubmit(handleAuthForm)}>
+          <_.FormInputDiv>
+            <_.InputLabel>Email</_.InputLabel>
+            <_.Input
+              {...register("email",)}
+              placeholder="Insira seu email"
+              autoComplete="email"
+            />
 
-                    <_.FormInputDiv>
-                        <_.InputLabel>Senha</_.InputLabel>
-                        <_.Input 
-                            placeholder='Insira sua senha'
-                            autoComplete='password'
-                            visible={isPasswordVisible}
-                        />
-                        <_.TogglePasswordVisibilityDiv onClick={() => setIsVisible(!isPasswordVisible)}>
-                            {isPasswordVisible? 
-                                <EyeHideInputIcon 
-                                    size={25} 
-                                    color={theme.colors.black[10]}
-                                /> 
-                                : 
-                                <EyeShowInputIcon 
-                                    size={25} 
-                                    color={theme.colors.black[10]}
-                                /> 
-                            }
-                        </_.TogglePasswordVisibilityDiv>
-                    </_.FormInputDiv>
+            {errors.email ? (
+              <_.WarningMsg>{errors.email.message}</_.WarningMsg>
+            ) : (
+              " "
+            )}
+          </_.FormInputDiv>
 
-                    <_.RememberLoginDiv>
-                        <_.RememberLoginCheckboxDiv>
-                            <_.RememberLoginCheckbox 
-                                checked={rememberLogin}
-                                onChange={handleCheckbox}
-                            />
-                        </_.RememberLoginCheckboxDiv>
-                        <_.PlainText>Lembrar meu acesso</_.PlainText>
-                    </_.RememberLoginDiv>
+          <_.FormInputDiv>
+            <_.InputLabel>Senha</_.InputLabel>
+            <_.Input
+              {...register("password")}
+              placeholder="Insira sua senha"
+              autoComplete="password"
+              visible={isPasswordVisible}
+            />
+            <_.TogglePasswordVisibilityDiv
+              onClick={() => setIsVisible(!isPasswordVisible)}
+            >
+              {isPasswordVisible ? (
+                <EyeHideInputIcon size={25} color={theme.colors.black[10]} />
+              ) : (
+                <EyeShowInputIcon size={25} color={theme.colors.black[10]} />
+              )}
+            </_.TogglePasswordVisibilityDiv>
 
-                    <_.LoginButtonDiv>
-                        <_.LoginButton $text="Acessar" />
-                    </_.LoginButtonDiv>
+            {errors.password ? (
+              <_.WarningMsg>{errors.password.message}</_.WarningMsg>
+            ) : (
+              " "
+            )}
+          </_.FormInputDiv>
 
-                </_.LoginForm>
+          <_.RememberLoginDiv>
+            <_.RememberLoginCheckboxDiv>
+              <_.RememberLoginCheckbox
+                checked={rememberLogin}
+                onChange={handleCheckbox}
+              />
+            </_.RememberLoginCheckboxDiv>
+            <_.PlainText>Lembrar meu acesso</_.PlainText>
+          </_.RememberLoginDiv>
 
-                <_.LoginBottomDiv>
-                    <_.ForgotPasswordLink to={'/'}>
-                        <_.PlainText>Esqueci minha senha</_.PlainText>
-                    </_.ForgotPasswordLink>
-                </_.LoginBottomDiv>
+          <_.LoginButtonDiv>
+            <_.LoginButton disabled={isSubmitting}>
+              {isSubmitting ? <Spinner /> : "Acessar"}
+            </_.LoginButton>
+          </_.LoginButtonDiv>
+        </_.LoginForm>
 
-            </_.Content>
-        </_.Container>
-    );
+        <_.LoginBottomDiv>
+          <_.ForgotPasswordLink to={"/"}>
+            <_.PlainText>Esqueci minha senha</_.PlainText>
+          </_.ForgotPasswordLink>
+          <_.RequestWarningMsg>{errorMsg}</_.RequestWarningMsg>
+        </_.LoginBottomDiv>
+      </_.Content>
+    </_.Container>
+  );
 }

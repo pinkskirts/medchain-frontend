@@ -10,25 +10,25 @@ export default function LeftSide() {
                 <_.HeaderDivs>
                     <_.HeaderText 
                         color={theme.colors.white[10]}
-                        marginTop="5%"
+                        margintop="5%"
                         >
                         Bem-vindo(a)!
                     </_.HeaderText>
                     <_.HeaderText 
                         color={theme.colors.white[10]}
-                        marginTop="-2%"
+                        margintop="-2%"
                         >
                         Acesse sua conta para ter 
                     </_.HeaderText>
                     <_.HeaderText 
                         color={theme.colors.white[10]}
-                        marginTop="-2%"
+                        margintop="-2%"
                     >
                         acesso garantido às suas
                     </_.HeaderText>
                     <_.HeaderText 
                         color={theme.colors.blue[20]}
-                        marginTop="-2%"
+                        margintop="-2%"
                     >
                         receitas.
                     </_.HeaderText>

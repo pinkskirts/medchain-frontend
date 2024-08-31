@@ -17,7 +17,12 @@ export const Content = styled.div`
     border: 2px transparent;
     border-radius: 5px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-`
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: rgba(158, 51, 51, 0.6);
+    }
+`;
 
 export const HeaderDivs = styled.div`
     display: flex;
@@ -26,9 +31,9 @@ export const HeaderDivs = styled.div`
     width: 100%;
 `
 
-export const HeaderText = styled.h1<{ color: string; marginTop?: string; marginBottom?: string }>`
+export const HeaderText = styled.h1<{ color: string; margintop?: string; marginBottom?: string }>`
   color: ${(props) => props.color};
-  margin-top: ${(props) => props.marginTop};
+  margin-top: ${(props) => props.margintop};
   margin-bottom: ${(props) => props.marginBottom};
   white-space: normal;
   word-wrap: break-word;
