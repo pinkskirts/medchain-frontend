@@ -1,6 +1,6 @@
-import { theme } from "@theme/index";
-import Link from "@ui/Link/index";
 import styled from "styled-components";
+import { theme } from "@theme/index";
+import Link from "@components/UI/Link/index";
 
 export const Container = styled.div`
   flex: 1;
@@ -183,7 +183,7 @@ export const WarningMsg = styled.p`
 `;
 
 export const RequestWarningMsg = styled.p`
-color: ${theme.colors.white[10]};
+  color: ${theme.colors.white[10]};
   white-space: pre;
   font-weight: bold;
-`
+`;

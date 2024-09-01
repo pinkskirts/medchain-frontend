@@ -1,10 +1,10 @@
-import useAuthentication from "hooks/useAuthentication";
 import * as _ from "./styles";
+import useAuthentication from "hooks/useAuthentication";
 import { EyeHideInputIcon, EyeShowInputIcon } from "@theme/icons";
 import { theme } from "@theme/index";
 import Spinner from "@components/UI/Loaders/Spinner";
 
-export default function RightSide() {
+export default function SignInRightSide() {
   const {
     errorMsg,
     isPasswordVisible,
@@ -36,7 +36,7 @@ export default function RightSide() {
           <_.FormInputDiv>
             <_.InputLabel>Email</_.InputLabel>
             <_.Input
-              {...register("email",)}
+              {...register("email")}
               placeholder="Insira seu email"
               autoComplete="email"
             />

@@ -24,14 +24,7 @@ export const Content = styled.div`
   }
 `;
 
-export const HeadersDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`;
-
-export const SignInImage = styled.img`
+export const SignUpImage = styled.img`
   margin-top: -5%;
-  padding: 2rem;
+  padding: 3rem;
 `;
