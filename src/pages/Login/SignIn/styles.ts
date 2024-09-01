@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { theme } from "@theme/index";
 import backgroundImg from '@assets/flat-mountains.svg';
 
 export const Container = styled.div`
@@ -9,7 +8,6 @@ export const Container = styled.div`
     height: 100vh;
     flex-wrap: wrap;
 
-    background-color: ${theme.colors.primary[10]};
     background-image: url(${backgroundImg});
     background-size: cover;
     background-position: center;

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { AuthFormTypeEnum, CombinedPayload, CombinedSchema, SignInPayload, SignUpPayload } from "types/auth";
+import {
+  AuthFormTypeEnum,
+  CombinedPayload,
+  CombinedSchema,
+  SignInPayload,
+  SignUpPayload,
+} from "types/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +14,8 @@ const useAuthentication = () => {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
 
-  const formType: AuthFormTypeEnum = pathname === '/sign-up' ? AuthFormTypeEnum.SignUp : AuthFormTypeEnum.SignIn;
+  const formType: AuthFormTypeEnum =
+    pathname === "/sign-up" ? AuthFormTypeEnum.SignUp : AuthFormTypeEnum.SignIn;
 
   const {
     register,

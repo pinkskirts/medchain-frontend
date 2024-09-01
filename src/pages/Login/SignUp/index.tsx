@@ -1,15 +1,12 @@
-import { Link } from 'react-router-dom';
-import * as _ from './styles';
+import * as _ from "./styles";
+import SignUpLeftSide from "./LeftSide";
+import SignUpRightSide from "./RightSide";
 
 export default function SignUp() {
-    return (
-        <_.Container>
-            <_.Content>
-                PAGINA DE CADASTRO
-                <Link to={'/'}>
-                    VOLTAR PARA LOGIN
-                </Link>
-            </_.Content>
-        </_.Container>
-    );
+  return (
+    <_.Container>
+      <SignUpLeftSide />
+      <SignUpRightSide />
+    </_.Container>
+  );
 }

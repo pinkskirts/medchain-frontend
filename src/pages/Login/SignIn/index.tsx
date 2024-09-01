@@ -1,12 +1,12 @@
-import LeftSide from './LeftSide';
-import RightSide from './RightSide';
 import * as _ from './styles';
+import SignInLeftSide from './LeftSide';
+import SignInRightSide from './RightSide';
 
 export default function SignIn() {
     return (
         <_.Container>
-            <LeftSide />
-            <RightSide />
+            <SignInLeftSide />
+            <SignInRightSide />
         </_.Container>
     );
 }

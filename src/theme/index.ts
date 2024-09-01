@@ -1,9 +1,9 @@
 import { colors } from "./colors";
 
 const theme = {
-    colors
-}
+  colors,
+};
 
-export { theme }
+export { theme };
 
-export type Theme = typeof theme
+export type Theme = typeof theme;
