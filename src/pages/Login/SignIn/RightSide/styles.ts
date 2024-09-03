@@ -104,7 +104,7 @@ export const RememberLoginDiv = styled.div`
   display: flex;
   font-size: 20px;
   gap: 0.5rem;
-  align-items: center; /* Alinha o checkbox e o texto verticalmente */
+  align-items: center;
 `;
 
 export const RememberLoginCheckboxDiv = styled.div`

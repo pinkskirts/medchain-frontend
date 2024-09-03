@@ -91,7 +91,7 @@ export default function SignInRightSide() {
         </_.LoginForm>
 
         <_.LoginBottomDiv>
-          <_.ForgotPasswordLink to={"/"}>
+          <_.ForgotPasswordLink to={"/forgot-password"}>
             <_.PlainText>Esqueci minha senha</_.PlainText>
           </_.ForgotPasswordLink>
           <_.RequestWarningMsg>{errorMsg}</_.RequestWarningMsg>
