@@ -9,10 +9,16 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authMessages } from "utils/auth-messages";
 
 const useAuthentication = () => {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
+
+  const mockedUser = {
+    email: "admin@admin.com",
+    password: "admin",
+  };
 
   const formType: AuthFormTypeEnum =
     pathname === "/sign-up" ? AuthFormTypeEnum.SignUp : AuthFormTypeEnum.SignIn;
@@ -27,7 +33,7 @@ const useAuthentication = () => {
     resolver: zodResolver(CombinedSchema),
   });
 
-  const [errorMsg, setRequestWarningMsg] = useState<string>(" ");
+  const [requestWarningMsg, setRequestWarningMsg] = useState<string>();
   const [isPasswordVisible, setIsVisible] = useState<boolean>(true);
   const [rememberLogin, setRememberLogin] = useState(false);
 
@@ -36,7 +42,7 @@ const useAuthentication = () => {
   };
 
   const handleAuthForm: SubmitHandler<CombinedPayload> = async (data) => {
-    setRequestWarningMsg("teste");
+    setRequestWarningMsg("");
 
     if (formType === "") {
       return handleSignInRequest(data as SignInPayload);
@@ -47,10 +53,19 @@ const useAuthentication = () => {
 
   async function handleSignInRequest(data: SignInPayload) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log(data);
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // mocka tempo de request
+
+      if (
+        data.email.trim() !== mockedUser.email ||
+        data.password.trim() !== mockedUser.password
+      ) {
+        throw Error();
+      }
+
       navigate("/home");
-    } catch (error) {}
+    } catch (error) {
+      setRequestWarningMsg(authMessages["USER-NOT-FOUND"]);
+    }
   }
 
   async function handleSignUpRequest(data: SignUpPayload) {
@@ -68,7 +83,7 @@ const useAuthentication = () => {
   }
 
   return {
-    errorMsg,
+    requestWarningMsg,
     isPasswordVisible,
     setIsVisible,
     handleCheckbox,
