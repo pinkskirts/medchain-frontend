@@ -174,7 +174,9 @@ export const LoginBottomDiv = styled.div`
   transform: translateY(15px);
 `;
 
-export const ForgotPasswordLink = styled(Link)``;
+export const ForgotPasswordLink = styled(Link)`
+  width: 1%;
+`;
 
 export const WarningMsg = styled.p`
   color: ${theme.colors.white[10]};
