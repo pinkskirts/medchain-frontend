@@ -5,11 +5,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
 `;
 
 export const Content = styled.div`
-  max-width: 71%;
-  width: 70%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
