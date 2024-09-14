@@ -6,7 +6,7 @@ import Spinner from "@components/UI/Loaders/Spinner";
 
 export default function SignInRightSide() {
   const {
-    errorMsg,
+    requestWarningMsg,
     isPasswordVisible,
     setIsVisible,
     handleCheckbox,
@@ -40,12 +40,13 @@ export default function SignInRightSide() {
               placeholder="Insira seu email"
               autoComplete="email"
             />
-
-            {errors.email ? (
-              <_.WarningMsg>{errors.email.message}</_.WarningMsg>
-            ) : (
-              " "
-            )}
+            <_.InputErrorDiv>
+              {errors.email ? (
+                <_.WarningMsg>{errors.email.message}</_.WarningMsg>
+              ) : (
+                " "
+              )}
+            </_.InputErrorDiv>
           </_.FormInputDiv>
 
           <_.FormInputDiv>
@@ -66,11 +67,13 @@ export default function SignInRightSide() {
               )}
             </_.TogglePasswordVisibilityDiv>
 
-            {errors.password ? (
-              <_.WarningMsg>{errors.password.message}</_.WarningMsg>
-            ) : (
-              " "
-            )}
+            <_.InputErrorDiv>
+              {errors.password ? (
+                <_.WarningMsg>{errors.password.message}</_.WarningMsg>
+              ) : (
+                " "
+              )}
+            </_.InputErrorDiv>
           </_.FormInputDiv>
 
           <_.RememberLoginDiv>
@@ -94,7 +97,9 @@ export default function SignInRightSide() {
           <_.ForgotPasswordLink to={"/forgot-password"}>
             <_.PlainText>Esqueci minha senha</_.PlainText>
           </_.ForgotPasswordLink>
-          <_.RequestWarningMsg>{errorMsg}</_.RequestWarningMsg>
+          <_.RequestWarningDiv> 
+            <_.RequestWarningMsg>{requestWarningMsg ?? ""}</_.RequestWarningMsg>
+          </_.RequestWarningDiv>
         </_.LoginBottomDiv>
       </_.Content>
     </_.Container>

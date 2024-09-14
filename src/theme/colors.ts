@@ -16,6 +16,9 @@ const colors = {
   gray: {
     10: "#A4A4A4",
   },
+  red: {
+    10: "#FF3F25"
+  }
 };
 
 export { colors };

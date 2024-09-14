@@ -60,7 +60,7 @@ export const DoesNotHaveAccountLink = styled(Link)``;
 export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 export const FormInputDiv = styled.div`
@@ -92,11 +92,18 @@ export const Input = styled.input.attrs<{ visible?: boolean }>((props) => ({
   }
 `;
 
+export const InputErrorDiv = styled.div`
+  white-space: pre;
+  height: 30px;
+  display: flex;
+  align-items: center;
+`
+
 export const TogglePasswordVisibilityDiv = styled.div`
   cursor: pointer;
   position: absolute;
   right: 5%;
-  top: 50%;
+  top: 35%;
   background-color: transparent;
 `;
 
@@ -162,8 +169,10 @@ export const LoginButton = styled.button.attrs({
   font-size: 20px;
   padding: 8px;
   width: 50%;
+  height: 50px;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-weight: bold;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 `;
@@ -179,13 +188,19 @@ export const ForgotPasswordLink = styled(Link)`
 `;
 
 export const WarningMsg = styled.p`
-  color: ${theme.colors.white[10]};
-  white-space: pre;
+  color: ${theme.colors.red[10]};
   font-weight: bold;
 `;
 
+export const RequestWarningDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+`
+
 export const RequestWarningMsg = styled.p`
-  color: ${theme.colors.white[10]};
-  white-space: pre;
+  color: ${theme.colors.red[10]};
   font-weight: bold;
+  font-size: 21px;
 `;
