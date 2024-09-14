@@ -5,8 +5,10 @@ export const GlobalStyle = createGlobalStyle`
         font-family: Gill Sans, sans-serif, monospace;
     }
 
-    body {
+    html, body {
         margin: 0;
         padding: 0;
+        height: 100%;
+        overflow-x: hidden;
     }
 `;
