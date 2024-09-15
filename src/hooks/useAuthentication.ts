@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AuthFormTypeEnum,
-  CombinedPayload,
-  CombinedSchema,
+  getSchema,
+  LoginPayload,
+  Role,
   SignInPayload,
   SignUpPayload,
 } from "types/auth";
@@ -10,15 +11,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authMessages } from "utils/auth-messages";
+import { mockedUsers } from "utils/mocked-users";
+import { SelectRole } from "@components/Login/Select";
+import { defineToastify } from "@components/ToastifyMessage/helpers";
 
 const useAuthentication = () => {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
-
-  const mockedUser = {
-    email: "admin@admin.com",
-    password: "admin",
-  };
 
   const formType: AuthFormTypeEnum =
     pathname === "/sign-up" ? AuthFormTypeEnum.SignUp : AuthFormTypeEnum.SignIn;
@@ -27,11 +26,32 @@ const useAuthentication = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
-  } = useForm<CombinedPayload>({
+    trigger,
+    formState: { errors, isSubmitting, isSubmitted },
+  } = useForm<LoginPayload>({
     mode: "onSubmit",
-    resolver: zodResolver(CombinedSchema),
+    resolver: zodResolver(getSchema(formType)),
   });
+
+  const selectRoleOptions: SelectRole[] = [
+    { value: "Farmácia", identifier: Role["PHARMACY"] },
+    { value: "Médico", identifier: Role["MEDIC"] },
+    { value: "Paciente", identifier: Role["PATIENT"] },
+  ];
+
+  const [roleSelected, setRoleSelected] = useState<string>(
+    "Selecione uma opção"
+  );
+
+  /**
+   * Reavalia os campos de input caso um novo valor do Select seja selecionado
+   * e se o formulario foi submittado
+   */
+  useEffect(() => {
+    if (roleSelected && isSubmitted) {
+      trigger();
+    }
+  }, [roleSelected, trigger, isSubmitted]);
 
   const [requestWarningMsg, setRequestWarningMsg] = useState<string>();
   const [isPasswordVisible, setIsVisible] = useState<boolean>(true);
@@ -41,7 +61,26 @@ const useAuthentication = () => {
     setRememberLogin(event.target.checked);
   };
 
-  const handleAuthForm: SubmitHandler<CombinedPayload> = async (data) => {
+  const getSelectedRole = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setRoleSelected(event.target.value);
+  };
+
+  function getAuthentication(data: SignInPayload) {
+    const user = mockedUsers.find(
+      (user) =>
+        user.email.trim() === data.email.trim() &&
+        user.password.trim() === data.password.trim()
+    );
+
+    if (user) {
+      console.log(user);
+      return { isAuthenticated: true, userRole: user.role };
+    }
+
+    return { isAuthenticated: false, userRole: null };
+  }
+
+  const handleAuthForm: SubmitHandler<LoginPayload> = async (data) => {
     setRequestWarningMsg("");
 
     if (formType === "") {
@@ -55,14 +94,11 @@ const useAuthentication = () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000)); // mocka tempo de request
 
-      if (
-        data.email.trim() !== mockedUser.email ||
-        data.password.trim() !== mockedUser.password
-      ) {
-        throw Error();
-      }
+      const { isAuthenticated, userRole } = getAuthentication(data);
 
-      navigate("/home");
+      if (!isAuthenticated) throw Error();
+
+      navigate(`/home/${userRole}`);
     } catch (error) {
       setRequestWarningMsg(authMessages["USER-NOT-FOUND"]);
     }
@@ -70,14 +106,17 @@ const useAuthentication = () => {
 
   async function handleSignUpRequest(data: SignUpPayload) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log(data);
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // mocka tempo de request
+      defineToastify(
+        "success",
+        `Usuário registrado! Email: ${data.email} Senha: ${data.password}`
+      );
       navigate("/");
     } catch (error) {
       // iterar sobre erro.
       setError("email", {
         // pode ser root tb pra determinar erros de back
-        message: "Esse email ja foi escolhido.",
+        message: "Email já foi escolhido.",
       });
     }
   }
@@ -88,12 +127,14 @@ const useAuthentication = () => {
     setIsVisible,
     handleCheckbox,
     rememberLogin,
-
     register,
     handleSubmit,
     errors,
     isSubmitting,
     handleAuthForm,
+    getSelectedRole,
+    selectRoleOptions,
+    roleSelected,
   };
 };
 

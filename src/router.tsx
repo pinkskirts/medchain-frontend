@@ -9,7 +9,7 @@ export default function Router() {
     <Routes>
       <Route path="/" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/home/:role" element={<Home />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
     </Routes>
   );

@@ -1,22 +1,24 @@
 import * as _ from "./styles";
-import useAuthentication from "hooks/useAuthentication";
 import { EyeHideInputIcon, EyeShowInputIcon } from "@theme/icons";
 import { theme } from "@theme/index";
 import Spinner from "@components/UI/Loaders/Spinner";
+import Label from "@components/Login/Label";
+import useAuthentication from "hooks/useAuthentication";
+import Input from "@components/Login/Input";
+import InputError from "@components/Login/InputError";
 
 export default function SignInRightSide() {
   const {
-    requestWarningMsg,
+    handleSubmit,
+    handleAuthForm,
+    register,
+    errors,
     isPasswordVisible,
     setIsVisible,
-    handleCheckbox,
     rememberLogin,
-
-    register,
-    handleSubmit,
-    errors,
+    handleCheckbox,
     isSubmitting,
-    handleAuthForm,
+    requestWarningMsg,
   } = useAuthentication();
 
   return (
@@ -34,25 +36,21 @@ export default function SignInRightSide() {
 
         <_.LoginForm onSubmit={handleSubmit(handleAuthForm)}>
           <_.FormInputDiv>
-            <_.InputLabel>Email</_.InputLabel>
-            <_.Input
-              {...register("email")}
+            <Label>Email</Label>
+            <Input
+              name="email"
+              register={register}
               placeholder="Insira seu email"
               autoComplete="email"
             />
-            <_.InputErrorDiv>
-              {errors.email ? (
-                <_.WarningMsg>{errors.email.message}</_.WarningMsg>
-              ) : (
-                " "
-              )}
-            </_.InputErrorDiv>
+            <InputError errors={errors} fieldName="email" />
           </_.FormInputDiv>
 
           <_.FormInputDiv>
-            <_.InputLabel>Senha</_.InputLabel>
-            <_.Input
-              {...register("password")}
+            <Label>Senha</Label>
+            <Input
+              name="password"
+              register={register}
               placeholder="Insira sua senha"
               autoComplete="password"
               visible={isPasswordVisible}
@@ -67,13 +65,7 @@ export default function SignInRightSide() {
               )}
             </_.TogglePasswordVisibilityDiv>
 
-            <_.InputErrorDiv>
-              {errors.password ? (
-                <_.WarningMsg>{errors.password.message}</_.WarningMsg>
-              ) : (
-                " "
-              )}
-            </_.InputErrorDiv>
+            <InputError errors={errors} fieldName="password" />
           </_.FormInputDiv>
 
           <_.RememberLoginDiv>
@@ -97,7 +89,7 @@ export default function SignInRightSide() {
           <_.ForgotPasswordLink to={"/forgot-password"}>
             <_.PlainText>Esqueci minha senha</_.PlainText>
           </_.ForgotPasswordLink>
-          <_.RequestWarningDiv> 
+          <_.RequestWarningDiv>
             <_.RequestWarningMsg>{requestWarningMsg ?? ""}</_.RequestWarningMsg>
           </_.RequestWarningDiv>
         </_.LoginBottomDiv>

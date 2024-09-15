@@ -71,40 +71,11 @@ export const FormInputDiv = styled.div`
   gap: 5px;
 `;
 
-export const InputLabel = styled.label`
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-export const Input = styled.input.attrs<{ visible?: boolean }>((props) => ({
-  type: props.visible ? "password" : "text",
-}))`
-  width: 95%;
-  height: 40px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 8px;
-
-  &::placeholder {
-    color: ${theme.colors.gray[10]};
-  }
-
-  &:focus::placeholder {
-    color: transparent;
-  }
-`;
-
-export const InputErrorDiv = styled.div`
-  white-space: pre;
-  height: 30px;
-  display: flex;
-  align-items: center;
-`
-
 export const TogglePasswordVisibilityDiv = styled.div`
   cursor: pointer;
   position: absolute;
   right: 5%;
-  top: 35%;
+  top: 39%;
   background-color: transparent;
 `;
 
@@ -186,11 +157,6 @@ export const LoginBottomDiv = styled.div`
 
 export const ForgotPasswordLink = styled(Link)`
   width: 1%;
-`;
-
-export const WarningMsg = styled.p`
-  color: ${theme.colors.red[10]};
-  font-weight: bold;
 `;
 
 export const RequestWarningDiv = styled.div`
