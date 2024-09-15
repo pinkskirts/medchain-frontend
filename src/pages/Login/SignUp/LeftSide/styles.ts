@@ -45,14 +45,29 @@ export const RegisterTopDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-bottom: 1.5rem;
 `;
 
 export const RegisterTopDivHeader = styled.h1``;
 
 export const DoesHaveAccountDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  font-size: 15px;
 `;
 
 export const DoesHaveAccountLink = styled(Link)``;
+
+export const FormDiv = styled.div`
+  width: 100%;
+`
+
+export const RoleSelectionDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  width: 90%;
+`
+
+export const RoleInputsForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`

@@ -6,4 +6,5 @@ export const BaseLink = styled(Link)`
   text-decoration: none;
   color: ${theme.colors.blue[20]};
   font-weight: bold;
+  display: inline-block;
 `;
