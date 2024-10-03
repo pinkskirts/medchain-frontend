@@ -1,6 +1,12 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 import { theme } from "@theme/index";
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  visible?: boolean;
+  register: any;
+}
 
 export const InputElement = styled.input.attrs<{
   visible?: boolean;
@@ -26,26 +32,14 @@ export const InputElement = styled.input.attrs<{
   }
 `;
 
-interface InputProps {
-  name: string;
-  placeholder?: string;
-  autoComplete?: string;
-  visible?: boolean;
-  register: any;
-}
-
 const Input: React.FC<InputProps> = ({
   name,
   register,
-  placeholder,
-  autoComplete,
   visible,
 }) => {
   return (
     <InputElement
       {...register(name)}
-      placeholder={placeholder}
-      autoComplete={autoComplete}
       visible={visible}
     />
   );

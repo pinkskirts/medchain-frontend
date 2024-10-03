@@ -73,7 +73,6 @@ const useAuthentication = () => {
     );
 
     if (user) {
-      console.log(user);
       return { isAuthenticated: true, userRole: user.role };
     }
 
