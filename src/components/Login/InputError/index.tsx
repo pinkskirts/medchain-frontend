@@ -22,7 +22,6 @@ interface InputErrorProps {
 export default function InputError({ errors, fieldName }: InputErrorProps) {
   const errorMessage = errors[fieldName]?.message;
 
-  console.log(errors)
   return (
     <InputErrorDiv>
       {errorMessage && typeof errorMessage === "string" ? (

@@ -7,7 +7,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -16,13 +15,12 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "@theme/*":["theme/*"],
-      "@components/*":["components/*"],
-      "@services/*":["services/*"],
-      "@ui/*":["components/UI/*"],
+      "@theme/*": ["theme/*"],
+      "@components/*": ["components/*"],
+      "@services/*": ["services/*"],
+      "@ui/*": ["components/UI/*"],
       "@assets/*": ["assets/*"],
     },
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
