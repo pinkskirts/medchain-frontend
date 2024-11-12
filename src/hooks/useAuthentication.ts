@@ -91,13 +91,13 @@ const useAuthentication = () => {
 
   async function handleSignInRequest(data: SignInPayload) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // mocka tempo de request
+      await new Promise((resolve) => setTimeout(resolve, 500)); // mocka tempo de request
 
       const { isAuthenticated, userRole } = getAuthentication(data);
 
       if (!isAuthenticated) throw Error();
 
-      navigate(`/home/${userRole}`);
+      navigate(`/home/${userRole}/visualizar-receitas`);
     } catch (error) {
       setRequestWarningMsg(authMessages["USER-NOT-FOUND"]);
     }

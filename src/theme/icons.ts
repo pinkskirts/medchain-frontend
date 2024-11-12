@@ -6,6 +6,7 @@ import { BsPerson } from "react-icons/bs";
 import { MdOutlineLocalPharmacy } from "react-icons/md";
 import { ImExit } from "react-icons/im";
 import { FaPrescriptionBottleMedical } from "react-icons/fa6";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 export const EyeShowInputIcon = BiShow;
 export const EyeHideInputIcon = BiHide;
@@ -15,3 +16,4 @@ export const PatientIcon = BsPerson;
 export const PharmacyIcon = MdOutlineLocalPharmacy;
 export const ExitIcon = ImExit;
 export const PrescriptionIcon = FaPrescriptionBottleMedical;
+export const AddPrescriptionIcon = IoIosAddCircleOutline;
