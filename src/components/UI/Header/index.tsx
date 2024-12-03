@@ -1,24 +1,27 @@
 import * as _ from "./styles";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ExitIcon, MedicIcon, PatientIcon, PharmacyIcon } from "@theme/icons";
+import { useContext } from "react";
+import { UserRoleContext } from "context/UserRoleContext";
 
-export default function Header() {
+interface HeaderProps {
+  role: string;
+  darkMode: boolean;
+}
+
+export default function Header({ role, darkMode }: HeaderProps) {
   const navigate = useNavigate();
-  const { role } = useParams();
-
-  const mockedUser = {
-    name: "Gustavo Scaglione",
-    email: "ra00301459@pucsp.edu.br",
-  };
+  const userRoleContext = useContext(UserRoleContext);
 
   const handleExit = () => {
+    userRoleContext.setUserSelectedRole("");
     navigate("/");
   };
 
   return (
-    <_.HeaderContainer>
+    <_.HeaderContainer $darkMode={darkMode}>
       <_.HeaderMsgs>
-        <_.WelcomeHeader>Bem-vindo, {mockedUser.name}</_.WelcomeHeader>
+        <_.WelcomeHeader>Olá!</_.WelcomeHeader>
         <_.RoleStatusMsg>
           Função atual:{" "}
           {role === "medic" && (
@@ -35,7 +38,7 @@ export default function Header() {
           )}
           {role === "pharmacy" && (
             <_.Role $color="green">
-              Farmácia
+              Farmacêutico
               <PharmacyIcon />
             </_.Role>
           )}

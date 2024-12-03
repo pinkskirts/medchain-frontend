@@ -4,15 +4,24 @@ import { theme } from "@theme/index";
 import Router from "./router";
 import { GlobalStyle } from "@theme/global";
 import ToastifyMessage from "@components/ToastifyMessage";
+import MainLayout from "layouts/MainLayout";
+import { UserRoleProvider } from "context/UserRoleContext";
+import { SidebarProvider } from "context/SidebarContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <ToastifyMessage />
-        <GlobalStyle />
-        <Router />
-      </ThemeProvider>
+      <UserRoleProvider>
+        <SidebarProvider>
+          <ThemeProvider theme={theme}>
+            <MainLayout>
+              <ToastifyMessage />
+              <GlobalStyle />
+              <Router />
+            </MainLayout>
+          </ThemeProvider>
+        </SidebarProvider>
+      </UserRoleProvider>
     </BrowserRouter>
   );
 }

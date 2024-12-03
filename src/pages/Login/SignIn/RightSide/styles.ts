@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "@theme/index";
 import Link from "@components/UI/Link/index";
 
-export const Container = styled.div`
+export const SignInRightSideContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -155,16 +155,12 @@ export const LoginBottomDiv = styled.div`
   transform: translateY(15px);
 `;
 
-export const ForgotPasswordLink = styled(Link)`
-  width: 1%;
-`;
-
 export const RequestWarningDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 30px;
-`
+`;
 
 export const RequestWarningMsg = styled.p`
   color: ${theme.colors.red[10]};

@@ -6,23 +6,17 @@ import Label from "@components/Login/Label";
 import useAuthentication from "hooks/useAuthentication";
 import Input from "@components/Login/Input";
 import InputError from "@components/Login/InputError";
+import { useContext } from "react";
+import { UserRoleContext } from "context/UserRoleContext";
 
 export default function SignInRightSide() {
-  const {
-    handleSubmit,
-    handleAuthForm,
-    register,
-    errors,
-    isPasswordVisible,
-    setIsVisible,
-    rememberLogin,
-    handleCheckbox,
-    isSubmitting,
-    requestWarningMsg,
-  } = useAuthentication();
+  const userRoleContext = useContext(UserRoleContext);
+  const authenticationHook = useAuthentication({
+    setUserSelectedRole: userRoleContext.setUserSelectedRole,
+  });
 
   return (
-    <_.Container>
+    <_.SignInRightSideContainer>
       <_.Content>
         <_.LoginTopDiv>
           <_.LoginTopDivHeader>Login</_.LoginTopDivHeader>
@@ -34,66 +28,76 @@ export default function SignInRightSide() {
           </_.DoesNotHaveAccountDiv>
         </_.LoginTopDiv>
 
-        <_.LoginForm onSubmit={handleSubmit(handleAuthForm)}>
+        <_.LoginForm
+          onSubmit={authenticationHook.handleSubmit(
+            authenticationHook.handleAuthForm
+          )}
+        >
           <_.FormInputDiv>
             <Label>Email</Label>
             <Input
               name="email"
-              register={register}
+              register={authenticationHook.register}
               placeholder="Insira seu email"
               autoComplete="email"
             />
-            <InputError errors={errors} fieldName="email" />
+            <InputError errors={authenticationHook.errors} fieldName="email" />
           </_.FormInputDiv>
 
           <_.FormInputDiv>
             <Label>Senha</Label>
             <Input
               name="password"
-              register={register}
+              register={authenticationHook.register}
               placeholder="Insira sua senha"
               autoComplete="password"
-              visible={isPasswordVisible}
+              visible={authenticationHook.isPasswordVisible}
             />
             <_.TogglePasswordVisibilityDiv
-              onClick={() => setIsVisible(!isPasswordVisible)}
+              onClick={() =>
+                authenticationHook.setIsVisible(
+                  !authenticationHook.isPasswordVisible
+                )
+              }
             >
-              {isPasswordVisible ? (
+              {authenticationHook.isPasswordVisible ? (
                 <EyeHideInputIcon size={25} color={theme.colors.black[10]} />
               ) : (
                 <EyeShowInputIcon size={25} color={theme.colors.black[10]} />
               )}
             </_.TogglePasswordVisibilityDiv>
 
-            <InputError errors={errors} fieldName="password" />
+            <InputError
+              errors={authenticationHook.errors}
+              fieldName="password"
+            />
           </_.FormInputDiv>
 
           <_.RememberLoginDiv>
             <_.RememberLoginCheckboxDiv>
               <_.RememberLoginCheckbox
-                checked={rememberLogin}
-                onChange={handleCheckbox}
+                checked={authenticationHook.rememberLogin}
+                onChange={authenticationHook.handleCheckbox}
               />
             </_.RememberLoginCheckboxDiv>
             <_.PlainText>Lembrar meu acesso</_.PlainText>
           </_.RememberLoginDiv>
 
           <_.LoginButtonDiv>
-            <_.LoginButton disabled={isSubmitting}>
-              {isSubmitting ? <Spinner /> : "Acessar"}
+            <_.LoginButton disabled={authenticationHook.isSubmitting}>
+              {authenticationHook.isSubmitting ? <Spinner /> : "Acessar"}
             </_.LoginButton>
           </_.LoginButtonDiv>
         </_.LoginForm>
 
         <_.LoginBottomDiv>
-          <_.ForgotPasswordLink to={"/forgot-password"}>
-            <_.PlainText>Esqueci minha senha</_.PlainText>
-          </_.ForgotPasswordLink>
           <_.RequestWarningDiv>
-            <_.RequestWarningMsg>{requestWarningMsg ?? ""}</_.RequestWarningMsg>
+            <_.RequestWarningMsg>
+              {authenticationHook.requestWarningMsg ?? ""}
+            </_.RequestWarningMsg>
           </_.RequestWarningDiv>
         </_.LoginBottomDiv>
       </_.Content>
-    </_.Container>
+    </_.SignInRightSideContainer>
   );
 }

@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { theme } from "@theme/index";
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div<{ $darkMode: boolean }>`
   display: flex;
   align-items: center;
   height: 10%;
-  background-color: ${theme.colors.white[10]};
+  background-color: ${(p) =>
+    p.$darkMode ? "rgba(0, 0, 0, 0.5)" : theme.colors.white[10]};
 `;
 
 export const HeaderMsgs = styled.div`
@@ -23,7 +24,7 @@ export const WelcomeHeader = styled.h3`
 export const RoleStatusMsg = styled.div`
   display: flex;
   font-weight: bold;
-  color: ${theme.colors.gray[10]};
+  color: black;
   gap: 0.2rem;
 `;
 

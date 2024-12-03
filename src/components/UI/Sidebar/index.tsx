@@ -3,37 +3,42 @@ import { AddPrescriptionIcon, PrescriptionIcon } from "@theme/icons";
 import { SidebarContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 import MedchainLogo from "@assets/medchain.svg";
+import MedchainLogoDark from "@assets/medchain_dark.svg";
 import ToggleSwitch from "../ToggleSwitch";
-import useSidebar from "hooks/useSidebar";
+import { useContext } from "react";
+import { SidebarContext } from "context/SidebarContext";
 
-export default function Sidebar() {
+interface SidebarProps {
+  role: string;
+  darkMode: boolean;
+}
+
+export default function Sidebar({ role, darkMode }: SidebarProps) {
   const navigate = useNavigate();
-  const sidebarHook = useSidebar();
-
-  // verificar o tipo de user pra nao dispor as opcoes que nao devem aparecer
+  const sidebarContext = useContext(SidebarContext);
 
   return (
-    <SidebarContainer>
-      <_.LogoImg src={MedchainLogo} />
+    <SidebarContainer $darkMode={darkMode}>
+      <_.LogoImg src={darkMode ? MedchainLogoDark : MedchainLogo} />
       <_.SidebarOptions>
         <_.SidebarOptionsGroup>
-          <_.SidebarOptionsGroupTitle>Menu</_.SidebarOptionsGroupTitle>
-          <_.OptionDiv
-            onClick={() => navigate("/home/medic/visualizar-receitas")}
-          >
+          <_.SidebarOptionsGroupTitle>
+            Menu de Receitas
+          </_.SidebarOptionsGroupTitle>
+          <_.OptionDiv onClick={() => navigate("/dash/visualizar-receitas")}>
             <_.Option>
               <PrescriptionIcon />
-              Visualizar Receitas
+              Visualizar
             </_.Option>
           </_.OptionDiv>
-          <_.OptionDiv
-            onClick={() => navigate("/home/medic/adicionar-receita")}
-          >
-            <_.Option>
-              <AddPrescriptionIcon />
-              Adicionar Receita
-            </_.Option>
-          </_.OptionDiv>
+          {role === "medic" && (
+            <_.OptionDiv onClick={() => navigate("/dash/adicionar-receita")}>
+              <_.Option>
+                <AddPrescriptionIcon />
+                Criar
+              </_.Option>
+            </_.OptionDiv>
+          )}
         </_.SidebarOptionsGroup>
         <_.SidebarOptionsGroup>
           <_.SidebarOptionsGroupTitle>
@@ -41,8 +46,8 @@ export default function Sidebar() {
           </_.SidebarOptionsGroupTitle>
           <_.SidebarAccessibilityDiv>
             <ToggleSwitch
-              isDarkMode={sidebarHook.isDarkMode}
-              toggleTheme={sidebarHook.toggleTheme}
+              isDarkMode={sidebarContext.isDarkMode}
+              toggleTheme={() => sidebarContext.toggleTheme()}
             />
             <_.AccessibilityToggleBrightnessDescription>
               Claro/Escuro

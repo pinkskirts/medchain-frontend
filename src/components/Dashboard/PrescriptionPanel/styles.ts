@@ -8,6 +8,9 @@ export const PrescriptionPanelContainer = styled.div`
   border-radius: 5px;
 `;
 
-export const PrescriptionInfo = styled.p`
-  font-weight: bold;
+export const PrescriptionTitle = styled.h2`
+  margin: 0;
+  justify-self: center;
 `;
+
+export const PrescriptionInfo = styled.p``;
