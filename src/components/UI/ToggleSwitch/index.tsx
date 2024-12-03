@@ -1,8 +1,8 @@
 import * as _ from "./styles";
 
 interface ToggleSwitchProps {
-  isDarkMode?: boolean;
-  toggleTheme?: () => void;
+  isDarkMode: boolean;
+  toggleTheme: () => void;
 }
 
 export default function ToggleSwitch({

@@ -3,18 +3,22 @@ import { Prescription } from "types/prescription";
 
 interface PrescriptionsPanelProps {
   prescription: Prescription;
+  children: React.ReactNode;
 }
 
 export default function PrescriptionPanel({
   prescription,
+  children,
 }: PrescriptionsPanelProps) {
   return (
     <_.PrescriptionPanelContainer>
-      Receita
+      <_.PrescriptionTitle>Receita</_.PrescriptionTitle>
       <_.PrescriptionInfo>
         DATA DE VALIDADE: {prescription.expirationDate}
       </_.PrescriptionInfo>
-      <_.PrescriptionInfo>PACIENTE: {prescription.patient}</_.PrescriptionInfo>
+      <_.PrescriptionInfo>
+        NOME DO PACIENTE: {prescription.patient}
+      </_.PrescriptionInfo>
       <_.PrescriptionInfo>
         POSOLOGIA: {prescription.dosageInstructions}
       </_.PrescriptionInfo>
@@ -22,8 +26,9 @@ export default function PrescriptionPanel({
         MEDICAMENTOS: {prescription.medications.join(", ")}
       </_.PrescriptionInfo>
       <_.PrescriptionInfo>
-        RECEITA VALIDA: {prescription.isValid ? "Sim" : "Não"}
+        RECEITA VÁLIDA: {prescription.isValid ? "Sim" : "Não"}
       </_.PrescriptionInfo>
+      {children}
     </_.PrescriptionPanelContainer>
   );
 }

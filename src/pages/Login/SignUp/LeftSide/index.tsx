@@ -8,27 +8,20 @@ import useAuthentication from "hooks/useAuthentication";
 import SignUpRolesFormContainer from "@components/Login/SignUpRolesForm";
 
 export default function SignUpLeftSide() {
-  const {
-    getSelectedRole,
-    selectRoleOptions,
-    roleSelected,
-    register,
-    handleSubmit,
-    handleAuthForm,
-    errors,
-    isSubmitting,
-  } = useAuthentication();
+  const authenticationHook = useAuthentication({
+    setUserSelectedRole: undefined,
+  });
 
   const renderFormByRole = () => {
     return (
       <>
-        {roleSelected.includes("Selecione uma opção") ? (
+        {authenticationHook.roleSelected.includes("Selecione uma opção") ? (
           ""
         ) : (
           <SignUpRolesFormContainer
-            register={register}
-            isSubmitting={isSubmitting}
-            errors={errors}
+            register={authenticationHook.register}
+            isSubmitting={authenticationHook.isSubmitting}
+            errors={authenticationHook.errors}
           >
             {renderRoleInputs()}
           </SignUpRolesFormContainer>
@@ -38,26 +31,26 @@ export default function SignUpLeftSide() {
   };
 
   const renderRoleInputs = () => {
-    switch (roleSelected) {
+    switch (authenticationHook.roleSelected) {
       case "pharmacy":
         return (
           <PharmacyInputs
-            errors={errors}
-            register={register}
+            errors={authenticationHook.errors}
+            register={authenticationHook.register}
           />
         );
       case "medic":
         return (
           <MedicInputs
-            errors={errors}
-            register={register}
+            errors={authenticationHook.errors}
+            register={authenticationHook.register}
           />
         );
       case "patient":
         return (
           <PatientInputs
-            errors={errors}
-            register={register}
+            errors={authenticationHook.errors}
+            register={authenticationHook.register}
           />
         );
     }
@@ -79,12 +72,16 @@ export default function SignUpLeftSide() {
           <_.RoleSelectionDiv>
             <Label>Selecione um tipo de usuário:</Label>
             <SelectUser
-              options={selectRoleOptions}
-              value={roleSelected}
-              onChange={getSelectedRole}
+              options={authenticationHook.selectRoleOptions}
+              value={authenticationHook.roleSelected}
+              onChange={authenticationHook.getSelectedRole}
             />
           </_.RoleSelectionDiv>
-          <_.RoleInputsForm onSubmit={handleSubmit(handleAuthForm)}>
+          <_.RoleInputsForm
+            onSubmit={authenticationHook.handleSubmit(
+              authenticationHook.handleAuthForm
+            )}
+          >
             {renderFormByRole()}
           </_.RoleInputsForm>
         </_.FormDiv>

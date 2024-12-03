@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { theme } from "@theme/index";
 
-export const SidebarContainer = styled.div`
+export const SidebarContainer = styled.div<{ $darkMode: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 18%;
-  background-color: ${theme.colors.white[10]};
+  background-color: ${(p) =>
+    p.$darkMode ? "rgba(0, 0, 0, 0.5)" : theme.colors.white[10]};
   border-right: 2px solid ${theme.colors.red[10]};
 `;
-
 
 export const LogoImg = styled.img`
   width: 80%;
@@ -40,6 +40,11 @@ export const OptionDiv = styled.div`
   border-radius: 5px;
   padding: 0.5rem;
   background-color: ${theme.colors.red[10]};
+  transition: background-color 0.2s ease-in;
+
+  &:hover {
+    background-color: ${theme.colors.primary[10]};
+  }
 `;
 
 export const Option = styled.div`

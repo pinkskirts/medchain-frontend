@@ -15,7 +15,11 @@ import { mockedUsers } from "utils/mocked-users";
 import { SelectRole } from "@components/Login/Select";
 import { defineToastify } from "@components/ToastifyMessage/helpers";
 
-const useAuthentication = () => {
+interface useAuthenticationProps {
+  setUserSelectedRole: React.Dispatch<React.SetStateAction<string>> | undefined;
+}
+
+const useAuthentication = ({ setUserSelectedRole }: useAuthenticationProps) => {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
 
@@ -76,7 +80,7 @@ const useAuthentication = () => {
       return { isAuthenticated: true, userRole: user.role };
     }
 
-    return { isAuthenticated: false, userRole: null };
+    return { isAuthenticated: false };
   }
 
   const handleAuthForm: SubmitHandler<LoginPayload> = async (data) => {
@@ -97,7 +101,8 @@ const useAuthentication = () => {
 
       if (!isAuthenticated) throw Error();
 
-      navigate(`/home/${userRole}/visualizar-receitas`);
+      setUserSelectedRole!(userRole!);
+      navigate(`/dash/visualizar-receitas`);
     } catch (error) {
       setRequestWarningMsg(authMessages["USER-NOT-FOUND"]);
     }

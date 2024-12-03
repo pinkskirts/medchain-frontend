@@ -30,3 +30,10 @@ export const CreatePrescriptionBodySchema = z.object({
 export type CreatePrescriptionBodyType = z.infer<
   typeof CreatePrescriptionBodySchema
 >;
+
+export const UpdatePrescriptionBodySchema = z.object({
+  address: z.number(),
+});
+export type UpdatePrescriptionBodyType = z.infer<
+  typeof UpdatePrescriptionBodySchema
+>;
