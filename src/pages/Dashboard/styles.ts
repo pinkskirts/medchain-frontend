@@ -3,6 +3,8 @@ import { theme } from "@theme/index";
 
 export const Container = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Content = styled.div`
@@ -10,9 +12,9 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%;
   gap: 2rem;
   padding: 1rem;
+  overflow: hidden;
 `;
 
 export const RefreshButton = styled.button`

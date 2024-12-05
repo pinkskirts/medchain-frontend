@@ -6,15 +6,20 @@ interface PrescriptionsPanelProps {
   children: React.ReactNode;
 }
 
+function ISOToDate(isoDateStr: string): string {
+  const [year, month, day] = isoDateStr.split("-");
+  return `${day}/${month}/${year}`;
+}
+
 export default function PrescriptionPanel({
   prescription,
   children,
 }: PrescriptionsPanelProps) {
-  return (
+  return ( 
     <_.PrescriptionPanelContainer>
       <_.PrescriptionTitle>Receita</_.PrescriptionTitle>
       <_.PrescriptionInfo>
-        DATA DE VALIDADE: {prescription.expirationDate}
+        DATA DE VALIDADE: {ISOToDate(prescription.expirationDate)}
       </_.PrescriptionInfo>
       <_.PrescriptionInfo>
         NOME DO PACIENTE: {prescription.patient}

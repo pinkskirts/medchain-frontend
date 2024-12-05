@@ -6,6 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 export const FormHeader = styled.h2``;
@@ -15,6 +16,7 @@ export const AddPrescriptionForm = styled.form`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
+  height: 100%;
 `;
 
 export const InputDiv = styled.div`
