@@ -6,11 +6,13 @@ import DischargePrescription from "../DischargePrescription";
 interface PrescriptionsAreaProps {
   prescriptions: Prescription[];
   userRole: string;
+  handleRefresh: () => void;
 }
 
 export default function PrescriptionsArea({
   prescriptions,
   userRole,
+  handleRefresh,
 }: PrescriptionsAreaProps) {
   return (
     <_.PrescriptionsAreaContainer>
@@ -19,7 +21,11 @@ export default function PrescriptionsArea({
           prescriptions.map((presc, index) => (
             <PrescriptionPanel key={index} prescription={presc}>
               {userRole === "pharmacy" && (
-                <DischargePrescription address={presc.address} />
+                <DischargePrescription
+                  address={presc.contractAddress}
+                  isValid={presc.isValid}
+                  handleRefresh={handleRefresh}
+                />
               )}
             </PrescriptionPanel>
           ))}
