@@ -31,6 +31,7 @@ export default function Dashboard() {
                 Recarregar
               </_.RefreshButton>
               <PrescriptionsArea
+                handleRefresh={dashboardHook.handleRefresh}
                 prescriptions={dashboardHook.prescriptions}
                 userRole={userRole}
               />

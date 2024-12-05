@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export interface Prescription {
-  address: number;
+  contractAddress: string;
   signingDoctor: string;
   expirationDate: string;
   patient: string;
@@ -32,7 +32,8 @@ export type CreatePrescriptionBodyType = z.infer<
 >;
 
 export const UpdatePrescriptionBodySchema = z.object({
-  address: z.number(),
+  prescriptionAddress: z.string(),
+  isValid: z.boolean(),
 });
 export type UpdatePrescriptionBodyType = z.infer<
   typeof UpdatePrescriptionBodySchema

@@ -14,6 +14,7 @@ const useDashboard = () => {
       const response = await getPrescriptions();
       setPrescriptions(response);
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
