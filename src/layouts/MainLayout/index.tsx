@@ -34,7 +34,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           </_.Content>
         </>
       ) : (
-        <_.InnerContent>{children}</_.InnerContent>
+        <_.InnerRootContent>{children}</_.InnerRootContent>
       )}
     </_.MainLayoutContainer>
   );
