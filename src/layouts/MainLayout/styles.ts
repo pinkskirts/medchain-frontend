@@ -18,8 +18,17 @@ export const InnerContent = styled.div<{ $darkMode?: boolean }>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
   gap: 2rem;
   padding: 1rem;
   background-color: ${(p) => p.$darkMode && "rgba(0, 0, 0, 0.3)"};
+`;
+
+export const InnerRootContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
 `;
