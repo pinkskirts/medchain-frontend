@@ -3,6 +3,7 @@ import { theme } from "@theme/index";
 
 export const MainLayoutContainer = styled.div`
   min-height: 100vh;
+  max-height: 100%;
   background-color: ${theme.colors.gray[20]};
   display: flex;
 `;
@@ -11,6 +12,8 @@ export const Content = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 5rem;
+  height: 100%;
 `;
 
 export const InnerContent = styled.div<{ $darkMode?: boolean }>`
@@ -18,9 +21,7 @@ export const InnerContent = styled.div<{ $darkMode?: boolean }>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: 100%;
-  gap: 2rem;
-  padding: 1rem;
+  max-height: 100%;
   background-color: ${(p) => p.$darkMode && "rgba(0, 0, 0, 0.3)"};
 `;
 
@@ -29,6 +30,5 @@ export const InnerRootContent = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: 100%;
   width: 100%;
 `;
